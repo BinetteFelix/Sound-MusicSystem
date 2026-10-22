@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utility;
 
 public class SoundFXPlayer : SingletonBehaviour<SoundFXPlayer>
@@ -20,7 +22,7 @@ public class SoundFXPlayer : SingletonBehaviour<SoundFXPlayer>
 
         audioSources[nextSourceIndex].gameObject.transform.position = sourcePos.position;
 
-        audioSources[nextSourceIndex].clip = clip;
+        audioSources[nextSourceIndex].clip = currentClip;
         audioSources[nextSourceIndex].pitch = pitch;
 
         audioSources[nextSourceIndex].Play();
@@ -29,5 +31,9 @@ public class SoundFXPlayer : SingletonBehaviour<SoundFXPlayer>
 
     public override void Instantiate()
     {
+    }
+    public void LoadNewScene(int index)
+    {
+        SceneManager.LoadScene(index);
     }
 }

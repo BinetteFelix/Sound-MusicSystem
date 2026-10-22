@@ -2736,7 +2736,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7571068245497224143, guid: aa488806a22a29541be8c0c6791bb95e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -4003,6 +4003,18 @@ MonoBehaviour:
           m_StringArgument: PauseClick
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1780605922}
+        m_TargetAssemblyTypeName: SoundFXPlayer, Assembly-CSharp
+        m_MethodName: LoadNewScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &894759540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4222,6 +4234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   audioMixer: {fileID: 24100000, guid: aa488806a22a29541be8c0c6791bb95e, type: 2}
+  ambVolSlider: {fileID: 1637801377}
+  masVOlSlider: {fileID: 1640716104}
+  musVolSlider: {fileID: 1802439672}
+  sfxVolSlider: {fileID: 804715506}
 --- !u!4 &919908977
 Transform:
   m_ObjectHideFlags: 0
@@ -5378,7 +5394,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7571068245497224143, guid: aa488806a22a29541be8c0c6791bb95e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -6419,8 +6435,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6991404ac34c9754a8bb720cbbe23bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _singletonName: MusicPlayer
+  _destroyOnLevelChange: 0
   musicClips:
   - {fileID: 8300000, guid: a22f97f1f05908148bf36a4ccf1bb7a5, type: 3}
+  - {fileID: 8300000, guid: d3049ca15f9259645803c969e6c3f5bf, type: 3}
+  musicSource: {fileID: 1542097803}
+  testSwitchSongAction:
+    m_Name: Test Switch Song
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 9893187b-6cc8-46f7-b39b-e03cfd121442
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 344a9113-3097-4637-97bf-ed194e7b28b5
+      m_Path: <Keyboard>/x
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Test Switch Song
+      m_Flags: 0
+    m_Flags: 0
+    m_Priority: 0
 --- !u!1 &1632931561
 GameObject:
   m_ObjectHideFlags: 0
@@ -7088,7 +7126,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7571068245497224143, guid: aa488806a22a29541be8c0c6791bb95e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -8411,7 +8449,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7571068245497224143, guid: aa488806a22a29541be8c0c6791bb95e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
