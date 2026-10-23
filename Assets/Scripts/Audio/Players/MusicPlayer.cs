@@ -1,24 +1,29 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using Utility;
 
 public class MusicPlayer : SingletonBehaviour<MusicPlayer>
 {
-    [SerializeField] private AudioClip[] musicClips;
+    [SerializeField] private AudioClip[] mainMenuMusicClips;
+    [SerializeField] private AudioClip[] gameSceneMusicClips;
+    private AudioClip[] currentMusicClipsCollection;
+
     [SerializeField] private AudioSource musicSource;
 
     private int nextClipIndex;
+
     private float musicClipTime;
     private float currentClipLength;
     private AudioClip currentClip;
+
+
     [SerializeField] InputAction testSwitchSongAction;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        StartCoroutine(EaseInSong(musicClips[nextClipIndex], 8f));
+        SwitchCollection(0, 0, 8f);
     }
 
     // Update is called once per frame
@@ -28,18 +33,18 @@ public class MusicPlayer : SingletonBehaviour<MusicPlayer>
 
         if (musicClipTime <= 0)
         {
-            if (nextClipIndex == musicClips.Length)
+            if (nextClipIndex == currentMusicClipsCollection.Length)
                 nextClipIndex = 0;
 
-            StartCoroutine(EaseInSong(musicClips[nextClipIndex], 8f));
+            SwitchSong(nextClipIndex, 8f);
         }
 
         if (testSwitchSongAction.WasPressedThisFrame())
         {
-            if (nextClipIndex == musicClips.Length)
+            if (nextClipIndex == currentMusicClipsCollection.Length)
                 nextClipIndex = 0;
 
-            StartCoroutine(EaseInSong(musicClips[nextClipIndex], 8f));
+            SwitchSong(nextClipIndex, 8f);
         }
     }
     private void InitMusic(AudioClip clip)
@@ -63,30 +68,38 @@ public class MusicPlayer : SingletonBehaviour<MusicPlayer>
 
         InitMusic(nextClip);
 
-        while (musicSource.volume < 1)
+        while (musicSource.volume < endVolume)
         {
             musicSource.volume += Time.deltaTime / easeTime;
             
             yield return null;
         }
     }
-    public void OnSceneLoad(Scene scene, LoadSceneMode sceneMode)
+    public void SwitchSong(int musicClipIndex, float easingTime)
     {
-        if (nextClipIndex == musicClips.Length)
+        if (nextClipIndex == currentMusicClipsCollection.Length)
             nextClipIndex = 0;
-        if (scene == SceneManager.GetSceneByBuildIndex(0))
-            StartCoroutine(EaseInSong(musicClips[nextClipIndex], 8f));
-        else if (scene == SceneManager.GetSceneByBuildIndex(1))
-            StartCoroutine(EaseInSong(musicClips[nextClipIndex], 8f));
+        StartCoroutine(EaseInSong(currentMusicClipsCollection[musicClipIndex], easingTime));
     }
-
+    public void SwitchCollection(int sceneIndex, int clipIndex, float easingTime)
+    {
+        nextClipIndex = 0;
+        switch (sceneIndex)
+        {
+            case 0:
+                    currentMusicClipsCollection = mainMenuMusicClips;
+                    SwitchSong(clipIndex, easingTime);
+                    break;
+            case 1:
+                    currentMusicClipsCollection = gameSceneMusicClips;
+                    SwitchSong(clipIndex, easingTime);
+                    break;
+            default:
+                break;
+        }
+    }
     public override void Instantiate()
     {
-        SceneManager.sceneLoaded += OnSceneLoad;
         testSwitchSongAction.Enable();
-    }
-    private void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoad;
     }
 }

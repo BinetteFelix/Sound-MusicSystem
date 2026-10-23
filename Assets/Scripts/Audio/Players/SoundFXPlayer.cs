@@ -28,12 +28,7 @@ public class SoundFXPlayer : SingletonBehaviour<SoundFXPlayer>
         audioSources[nextSourceIndex].Play();
         nextSourceIndex++;
     }
-
     public override void Instantiate()
     {
-    }
-    public void LoadNewScene(int index)
-    {
-        SceneManager.LoadScene(index);
     }
 }
