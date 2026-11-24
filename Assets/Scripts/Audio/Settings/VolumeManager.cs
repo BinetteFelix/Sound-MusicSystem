@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using Utility;
 
-public class VolumeManager : MonoBehaviour
+
+public class VolumeManager : SingletonBehaviour<VolumeManager>
 {
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider ambVolSlider, masVOlSlider, musVolSlider, sfxVolSlider;
@@ -40,5 +42,9 @@ public class VolumeManager : MonoBehaviour
     {
         float logVol = Mathf.Log(volume) * 20;
         audioMixer.SetFloat("SoundFXVolume", logVol);
+    }
+
+    public override void Instantiate()
+    {
     }
 }
